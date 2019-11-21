@@ -42,6 +42,16 @@ FirebaseCrashlytics.logUser({
 .then(() => alert(`user logged`))
 .catch(err => alert(err.message));
 ```
+
+Log a non-fatal error:
+```typescript
+FirebaseCrashlytics.logError({
+ message: "api returned a 404",
+ domain: "API_ERROR", // Used to group errors together in Crashlytics. Only applies to iOS.
+});
+.then(() => alert(`non-fatal event logged`))
+.catch(err => alert(err.message));
+```
 ## Android setup
 
 1. Follow the [Firebase Crashlytics Get Started guide](https://firebase.google.com/docs/crashlytics/get-started?platform=android) and put your `google-services.json` here: `android/app/google-services.json`
