@@ -13,6 +13,10 @@ npx cap update ios
 
 2. The Android setup process (see below) seems a bit complicated for a plugin.  The app-side configuration that is required is somewhat redundant of what is configured within the plugin's `build.gradle` - see [here](https://github.com/josh-m-sharpe/capacitor-firebase-crashlytics/blob/master/android/build.gradle).  However, this is the simplest way to get `com.crashlytics.android.Crashlytics` loaded within the plugin that I was able to figure out. Pull Requests or suggestions to improve the situation are welcome.
 
+3. The Crashlytics setup for android requires something to be put into the app level `build.gradle` file, but Capacitor apps only have a root level `build.gradle` file so this was not possible. The workaround was
+[this stackoverflow answer](https://stackoverflow.com/a/55737238/10129713). If there is a better solution 
+please create a pull request.
+
 ## Usage
 
 Load the module:
