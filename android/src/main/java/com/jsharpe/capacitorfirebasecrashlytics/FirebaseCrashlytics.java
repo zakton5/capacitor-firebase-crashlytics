@@ -48,5 +48,24 @@ public class FirebaseCrashlytics extends Plugin {
 
          call.success();
      }
+
+     @PluginMethod()
+     public void logError(PluginCall call) {
+         String errorMessage = call.getString("error");
+         String errorDomain = call.getString("domain");
+
+         if (errorMessage == null) {
+             call.reject("missing error property");
+         }
+
+         if (errorDomain == null) {
+             call.reject("missing domain property");
+         }
+
+         Exception ex = new Exception(errorMessage);
+         Crashlytics.logException(ex);
+
+         call.success();
+     }
 }
 

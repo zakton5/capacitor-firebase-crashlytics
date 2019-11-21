@@ -1,5 +1,5 @@
-import { WebPlugin } from '@capacitor/core';
-import { FirebaseCrashlyticsPlugin, CrashlyticsUserOptions } from './definitions';
+import { registerWebPlugin, WebPlugin } from '@capacitor/core';
+import { CrashlyticsErrorOptions, CrashlyticsUserOptions, FirebaseCrashlyticsPlugin } from './definitions';
 
 export class FirebaseCrashlyticsWeb extends WebPlugin implements FirebaseCrashlyticsPlugin {
   constructor() {
@@ -17,11 +17,15 @@ export class FirebaseCrashlyticsWeb extends WebPlugin implements FirebaseCrashly
     console.warn("Crashlytics.logUser is not implemented on web");
     console.log(options);
   }
+
+  async logError(options: CrashlyticsErrorOptions): Promise<void> {
+    console.warn("Crashlytics.logError is not implemented on web");
+    console.log(options);
+  }
 }
 
 const FirebaseCrashlytics = new FirebaseCrashlyticsWeb();
 
 export { FirebaseCrashlytics };
 
-import { registerWebPlugin } from '@capacitor/core';
 registerWebPlugin(FirebaseCrashlytics);

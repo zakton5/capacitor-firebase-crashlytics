@@ -6,4 +6,5 @@
 CAP_PLUGIN(FirebaseCrashlytics, "FirebaseCrashlytics",
            CAP_PLUGIN_METHOD(crash, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(logUser, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(logError, CAPPluginReturnPromise);
 )

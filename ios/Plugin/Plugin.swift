@@ -9,11 +9,11 @@ import Crashlytics
  */
 @objc(FirebaseCrashlytics)
 public class FirebaseCrashlytics: CAPPlugin {
-
+  
   @objc func crash(_ call: CAPPluginCall) {
     Crashlytics.sharedInstance().crash()
   }
-
+  
   @objc func logUser(_ call: CAPPluginCall) {
     guard let email = call.getString("email") else {
       call.error("missing email property")
@@ -27,11 +27,32 @@ public class FirebaseCrashlytics: CAPPlugin {
       call.error("missing name property")
       return
     }
-
+    
     Crashlytics.sharedInstance().setUserEmail(email)
     Crashlytics.sharedInstance().setUserIdentifier(id)
     Crashlytics.sharedInstance().setUserName(name)
-
+    
+    call.success()
+  }
+  
+  @objc func logError(_ call: CAPPluginCall) {
+    guard let errorMessage = call.getString("error") else {
+      call.reject("missing error property")
+      return
+    }
+    
+    guard let errorDomain = call.getString("domain") else {
+      call.reject("missing domain property")
+      return
+    }
+    
+    let userInfo: [String : Any] = [
+      NSLocalizedDescriptionKey: NSLocalizedString("Error", value: errorMessage, comment: "")
+    ]
+    
+    let err = NSError(domain: errorDomain, code: 1000, userInfo: userInfo)
+    Crashlytics.sharedInstance().recordError(err)
+    
     call.success()
   }
 }
